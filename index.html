@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Calendrier avec Rappels</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <header>
+        <h1>Calendrier</h1>
+    </header>
+    
+    <section>
+        <h2>Mois Actuel</h2>
+        <div id="calendarControls">
+            <button id="prevMonth">◀</button>
+            <span id="currentMonthYear"></span>
+            <button id="nextMonth">▶</button>
+        </div>
+        <div id="weekdays">
+            <div class="weekday">Lu</div>
+            <div class="weekday">Ma</div>
+            <div class="weekday">Me</div>
+            <div class="weekday">Je</div>
+            <div class="weekday">Ve</div>
+            <div class="weekday">Sa</div>
+            <div class="weekday">Di</div>
+        </div>
+        <div id="calendar"></div>
+    </section>
+
+    <section>
+        <h2>Ajouter un événement</h2>
+        <form id="eventForm">
+            <label for="eventTitle">Titre de l'événement :</label>
+            <input type="text" id="eventTitle" required />
+
+            <label for="eventTime">Heure de l'événement :</label>
+            <input type="time" id="eventTime" required />
+
+            <button type="submit">Ajouter l'événement</button>
+        </form>
+    </section>
+
+    <section>
+        <h2>Événements à venir</h2>
+        <ul id="eventList"></ul>
+    </section>
+
+    <div id="popup" class="hidden">
+        <div id="popupContent">
+            <h3>Événements pour le <span id="popupDate"></span></h3>
+            <ul id="popupEventList"></ul>
+            <button id="closePopup">Fermer</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

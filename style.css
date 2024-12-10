@@ -1,0 +1,192 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f9;
+}
+
+header {
+    background-color: #4CAF50;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+}
+
+section {
+    margin: 20px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+input, button {
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    cursor: pointer;
+    border: none;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+li {
+    padding: 10px;
+    background-color: #e2e2e2;
+    margin-bottom: 5px;
+    border-radius: 5px;
+}
+
+/* Contrôles du calendrier */
+#calendarControls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+#calendarControls button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+}
+
+#calendarControls button:hover {
+    background-color: #45a049;
+}
+
+/* Jours de la semaine */
+#weekdays {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.weekday {
+    padding: 10px;
+    background-color: #f4f4f9;
+}
+
+/* Grille du calendrier */
+#calendar {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+}
+
+#calendar .day {
+    position: relative;
+    padding: 20px;
+    text-align: center;
+    background-color: #e2e2e2;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#calendar .day:hover {
+    background-color: #4CAF50;
+    color: white;
+}
+
+#calendar .selected {
+    background-color: #4CAF50;
+    color: white;
+    font-weight: bold;
+}
+
+#calendar .disabled {
+    background-color: #f4f4f9;
+    color: #ccc;
+    cursor: not-allowed;
+}
+
+/* Badge d'événements */
+#calendar .day .badge {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background-color: red;
+    color: white;
+    font-size: 12px;
+    padding: 3px 5px;
+    border-radius: 50%;
+    display: none;
+}
+
+#calendar .day.has-event .badge {
+    display: inline-block;
+}
+
+/* Styles pour le popup */
+#popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+}
+
+#popupContent {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    width: 300px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+#popupContent h3 {
+    margin-bottom: 20px;
+}
+
+#popupEventList {
+    list-style: none;
+    padding: 0;
+}
+
+#popupEventList li {
+    margin-bottom: 10px;
+}
+
+.hidden {
+    display: none !important;
+}
+
+#closePopup {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#closePopup:hover {
+    background-color: #45a049;
+}
