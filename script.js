@@ -14,31 +14,27 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let currentDate = new Date();
     let selectedDate = null;
-    const events = {}; // Objet : "YYYY-M-D" => [{title, time}, ...]
+    const events = {}; // { "YYYY-M-D": [ {title:..., time:...}, ... ] }
 
-    /**
-     * Génère le calendrier pour le mois et l'année donnés.
-     */
     function generateCalendar(year, month) {
         calendarElement.innerHTML = '';
         const firstDayOfMonth = new Date(year, month, 1);
         const lastDayOfMonth = new Date(year, month + 1, 0);
         const daysInMonth = lastDayOfMonth.getDate();
-
-        // getDay() renvoie 0 pour Dimanche, on ajuste pour commencer la semaine le Lundi
-        const firstDayWeekday = firstDayOfMonth.getDay();
+        
+        const firstDayWeekday = firstDayOfMonth.getDay(); 
         const startOffset = (firstDayWeekday === 0 ? 6 : firstDayWeekday - 1);
 
         currentMonthYearElement.textContent = `${getMonthName(month)} ${year}`;
 
-        // Ajout des cases vides avant le début du mois
+        // Jours vides avant le début du mois
         for (let i = 0; i < startOffset; i++) {
             const emptyCell = document.createElement('div');
             emptyCell.classList.add('day', 'disabled');
             calendarElement.appendChild(emptyCell);
         }
 
-        // Ajout des jours du mois
+        // Jours du mois
         for (let day = 1; day <= daysInMonth; day++) {
             const dayCell = document.createElement('div');
             dayCell.classList.add('day');
@@ -65,9 +61,6 @@ document.addEventListener('DOMContentLoaded', () => {
         updateCalendarSelection();
     }
 
-    /**
-     * Retourne le nom du mois en français.
-     */
     function getMonthName(month) {
         const months = [
             'Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin',
@@ -76,35 +69,24 @@ document.addEventListener('DOMContentLoaded', () => {
         return months[month];
     }
 
-    /**
-     * Gère le clic sur un jour donné.
-     */
     function handleDayClick(day, year, month) {
         selectedDate = new Date(year, month, day);
         updateCalendarSelection();
     }
 
-    /**
-     * Met à jour la sélection visuelle du jour sélectionné.
-     */
     function updateCalendarSelection() {
         const allDays = calendarElement.querySelectorAll('.day');
         allDays.forEach((dayCell) => {
             const dayNumber = parseInt(dayCell.textContent, 10);
-            if (selectedDate &&
-                dayNumber === selectedDate.getDate() &&
-                selectedDate.getMonth() === currentDate.getMonth() &&
-                selectedDate.getFullYear() === currentDate.getFullYear()) {
+            if (selectedDate && dayNumber === selectedDate.getDate()) {
                 dayCell.classList.add('selected');
             } else {
                 dayCell.classList.remove('selected');
             }
+
         });
     }
 
-    /**
-     * Soumission du formulaire d'ajout d'événement.
-     */
     eventForm.addEventListener('submit', (e) => {
         e.preventDefault();
 
@@ -129,48 +111,39 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         events[dateKey].push(newEvent);
 
-        // On met à jour currentDate pour qu'il corresponde à selectedDate,
-        // afin de conserver l'affichage du même mois et année.
-        currentDate = new Date(selectedDate.getTime());
-        generateCalendar(currentDate.getFullYear(), currentDate.getMonth());
+        generateCalendar(selectedDate.getFullYear(), selectedDate.getMonth());
 
-        // On ne remet pas selectedDate à null, ainsi la date reste sélectionnée.
         eventTitleInput.value = '';
         eventTimeInput.value = '';
+        selectedDate = null;
     });
 
-    /**
-     * Navigation mois précédent.
-     */
     prevMonthButton.addEventListener('click', () => {
         currentDate.setMonth(currentDate.getMonth() - 1);
         generateCalendar(currentDate.getFullYear(), currentDate.getMonth());
-        // Si selectedDate est défini, on vérifie si elle est dans le mois affiché.
-        updateCalendarSelection();
     });
 
-    /**
-     * Navigation mois suivant.
-     */
     nextMonthButton.addEventListener('click', () => {
         currentDate.setMonth(currentDate.getMonth() + 1);
         generateCalendar(currentDate.getFullYear(), currentDate.getMonth());
-        // Si selectedDate est défini, on vérifie si elle est dans le mois affiché.
-        updateCalendarSelection();
     });
 
-    /**
-     * Affiche le popup des événements pour une date donnée.
-     */
     function showPopup(dateKey) {
         const eventList = events[dateKey] || [];
         popupDate.textContent = formatDateKey(dateKey);
         popupEventList.innerHTML = '';
 
         if (eventList.length > 0) {
-            eventList.forEach((event) => {
+            eventList.forEach((event, index) => {
                 const li = document.createElement('li');
                 li.textContent = `${event.time} - ${event.title}`;
+
+                const deleteButton = document.createElement('button');
+                deleteButton.textContent = 'Supprimer';
+                deleteButton.classList.add('delete-button');
+                deleteButton.addEventListener('click', () => deleteEvent(dateKey, index));
+
+                li.appendChild(deleteButton);
                 popupEventList.appendChild(li);
             });
         } else {
@@ -182,17 +155,27 @@ document.addEventListener('DOMContentLoaded', () => {
         popup.classList.remove('hidden');
     }
 
-    /**
-     * Formate le dateKey en JJ/MM/AAAA.
-     */
+    function deleteEvent(dateKey, index) {
+        if (events[dateKey]) {
+            events[dateKey].splice(index, 1); // Supprime l'événement à l'index donné
+
+            // Si aucun événement ne reste, supprimer la clé de l'objet
+            if (events[dateKey].length === 0) {
+                delete events[dateKey];
+            }
+
+            // Mettre à jour l'affichage
+            generateCalendar(selectedDate.getFullYear(), selectedDate.getMonth());
+            showPopup(dateKey); // Mettre à jour la liste dans le popup
+        }
+    }
+
+
     function formatDateKey(dateKey) {
         const [year, month, day] = dateKey.split('-');
         return `${day}/${month}/${year}`;
     }
 
-    /**
-     * Ferme le popup.
-     */
     closePopupButton.addEventListener('click', () => {
         popup.classList.add('hidden');
     });
@@ -200,3 +183,5 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initialisation
     generateCalendar(currentDate.getFullYear(), currentDate.getMonth());
 });
+
+

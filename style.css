@@ -190,3 +190,18 @@ li {
 #closePopup:hover {
     background-color: #45a049;
 }
+
+.delete-button {
+    margin-left: 10px;
+    padding: 5px 10px;
+    font-size: 12px;
+    color: white;
+    background-color: red;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.delete-button:hover {
+    background-color: darkred;
+}
