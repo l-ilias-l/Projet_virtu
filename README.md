@@ -65,63 +65,63 @@ Vous pouvez y accéder via un client MySQL ou un outil comme DBeaver pour vérif
 Endpoints de l'API
 1. Créer un événement
 
-    Méthode : POST
-    URL : /events
+    Méthode : POST  
+    URL : /events  
     Corps de la requête (JSON) :
 
-{
-  "title": "Titre de l'événement",
-  "time": "2024-12-25T10:00:00",
-  "description": "Description de l'événement"
-}
+{  
+  "title": "Titre de l'événement",  
+  "time": "2024-12-25T10:00:00",  
+  "description": "Description de l'événement"  
+}  
 
-    Réponse (JSON) :
+    Réponse (JSON) :  
 
 {
-  "id": 1,
-  "title": "Titre de l'événement",
-  "time": "2024-12-25T10:00:00",
-  "description": "Description de l'événement"
+  "id": 1,  
+  "title": "Titre de l'événement",  
+  "time": "2024-12-25T10:00:00",  
+  "description": "Description de l'événement"  
 }
 
 2. Obtenir tous les événements
 
-    Méthode : GET
-    URL : /events
-    Réponse (JSON) :
+    Méthode : GET. 
+    URL : /events  
+    Réponse (JSON) :  
 
 [
-  {
-    "id": 1,
-    "title": "Titre de l'événement",
-    "time": "2024-12-25T10:00:00",
-    "description": "Description de l'événement"
-  },
-  ...
+  {  
+    "id": 1,  
+    "title": "Titre de l'événement",  
+    "time": "2024-12-25T10:00:00",  
+    "description": "Description de l'événement"  
+  },  
+  ...  
 ]
 
-3. Obtenir un événement spécifique
+3. Obtenir un événement spécifique. 
 
-    Méthode : GET
-    URL : /events/{event_id}
-    Paramètre : event_id (ID de l'événement)
-    Réponse (JSON) :
+    Méthode : GET  
+    URL : /events/{event_id}  
+    Paramètre : event_id (ID de l'événement)  
+    Réponse (JSON) :  
 
 {
-  "id": 1,
-  "title": "Titre de l'événement",
-  "time": "2024-12-25T10:00:00",
-  "description": "Description de l'événement"
+  "id": 1,  
+  "title": "Titre de l'événement",  
+  "time": "2024-12-25T10:00:00",  
+  "description": "Description de l'événement"  
 }
 
 4. Supprimer un événement
 
-    Méthode : DELETE
-    URL : /events/{event_id}
-    Réponse (JSON) :
+    Méthode : DELETE  
+    URL : /events/{event_id}  
+    Réponse (JSON) :  
 
 {
-  "message": "Événement supprimé avec succès"
+  "message": "Événement supprimé avec succès"  
 }
 
 Technologies utilisées
