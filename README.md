@@ -132,12 +132,14 @@ Si vous souhaitez démarrer l'application en mode développement avec les modifi
 
 docker-compose up --build
 
-Le volume .:/app permet de monter votre répertoire local dans le conteneur, ce qui signifie que toutes les modifications que vous apportez au code seront immédiatement prises en compte dans le conteneur.
+Le volume .:/app permet de monter votre répertoire local dans le conteneur, ce qui signifie que toutes les modifications que vous apportez au code seront immédiatement prises en compte dans le conteneur. 
 2. Accéder à l'API
 
     URL de l'API : http://localhost:8000
     Documentation Swagger : http://localhost:8000/docs
     Documentation ReDoc : http://localhost:8000/redoc
+
+Contribuer
 
 
 
