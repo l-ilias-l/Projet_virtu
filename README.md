@@ -1,8 +1,3 @@
-# Projet_virtu
-Repo du projet de Virtualisation de 4A TD 48
-Mohamed BEKHTAHOUI
-Ilias HACHEMAOUI
-Royvin NICHOLAPILLAI
 Documentation de l'Application
 Description
 
@@ -140,7 +135,9 @@ docker-compose up --build
 Le volume .:/app permet de monter votre répertoire local dans le conteneur, ce qui signifie que toutes les modifications que vous apportez au code seront immédiatement prises en compte dans le conteneur.
 2. Accéder à l'API
 
-URL de l'API : http://localhost:8000
-Documentation Swagger : http://localhost:8000/docs
-Documentation ReDoc : http://localhost:8000/redoc
-    
+    URL de l'API : http://localhost:8000
+    Documentation Swagger : http://localhost:8000/docs
+    Documentation ReDoc : http://localhost:8000/redoc
+
+
+
