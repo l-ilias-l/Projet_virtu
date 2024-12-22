@@ -7,9 +7,6 @@ from sqlalchemy.orm import sessionmaker, declarative_base, Session
 
 from fastapi.middleware.cors import CORSMiddleware
 
-
-
-
 # =====================================
 # Configuration de la base de données
 # =====================================
