@@ -126,20 +126,18 @@ Technologies utilisées
     Pydantic : Validation des données d'entrée et sortie via des schémas.
 
 Développement local
-1. Démarrer les services localement
+1. Démarrer les services localement  
 
 Si vous souhaitez démarrer l'application en mode développement avec les modifications en temps réel, vous pouvez utiliser le volume Docker pour lier votre code local à l'application :
 
 docker-compose up --build
 
-Le volume .:/app permet de monter votre répertoire local dans le conteneur, ce qui signifie que toutes les modifications que vous apportez au code seront immédiatement prises en compte dans le conteneur. 
-2. Accéder à l'API
+Le volume .:/app permet de monter votre répertoire local dans le conteneur, ce qui signifie que toutes les modifications que vous apportez au code seront immédiatement prises en compte dans le conteneur.  
+2. Accéder à l'API  
 
     URL de l'API : http://localhost:8000
     Documentation Swagger : http://localhost:8000/docs
     Documentation ReDoc : http://localhost:8000/redoc
-
-Contribuer
 
 
 
