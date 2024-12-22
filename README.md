@@ -32,7 +32,7 @@ Installation
 Clonez ce dépôt sur votre machine locale :
 
 git clone https://github.com/l-ilias-l/Projet_virtu.git  
-cd nom-du-repository
+cd Projet_virtu.git
 
 2. Démarrer les services avec Docker Compose
 
