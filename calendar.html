@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <title>Calendrier Amélioré</title>
+
+    <!-- FullCalendar (Version Globale) -->
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.9/index.global.min.js"></script>
+
+    <!-- Styles personnalisés -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 20px;
+            color: #333;
+        }
+
+        #calendar {
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 10px;
+            background: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .fc-daygrid-day-frame {
+            padding: 5px;
+        }
+
+        .fc .fc-daygrid-day-number {
+            font-size: 13px;
+            color: #333;
+        }
+
+        .fc .fc-event-title {
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .fc-toolbar {
+            font-size: 16px;
+            background-color: #007BFF;
+            color: white;
+            padding: 5px;
+            border-radius: 5px;
+        }
+
+        .fc-button {
+            background-color: #007BFF !important;
+            border: none !important;
+            color: white !important;
+            border-radius: 5px !important;
+        }
+
+        .fc-button:hover {
+            background-color: #0056b3 !important;
+        }
+
+        .fc-event {
+            cursor: pointer;
+            border: 1px solid #007BFF;
+            background-color: #007BFF;
+            color: white;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>:~)DON'T FORGET ANYMORE :-)</h1>
+    <div id="calendar"></div>
+
+     <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var calendarEl = document.getElementById('calendar');
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth',
+                events: 'http://127.0.0.1:8000/events',
+                selectable: true,
+                editable: true,
+                dateClick: function (info) {
+                    var title = prompt('Titre de l\'événement :');
+                    if (title) {
+                        var startDate = info.dateStr + 'T09:00:00';
+                        var endDate = info.dateStr + 'T10:00:00';
+                        fetch('http://127.0.0.1:8000/add_event', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ title: title, start: startDate, end: endDate })
+                        }).then(() => calendar.refetchEvents());
+                    }
+                },
+                eventClick: function (info) {
+    if (confirm("Voulez-vous supprimer cet événement ?")) {
+        fetch('/delete_event', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ id: info.event.id }) // Assurez-vous que "id" est bien passé ici
+        }).then(response => {
+            if (response.ok) {
+                info.event.remove(); // Supprime visuellement l'événement
+                alert("Événement supprimé !");
+            } else {
+                alert("Erreur lors de la suppression !");
+            }
+        }).catch(err => {
+            alert("Erreur réseau : " + err);
+        });
+    }
+}
+
+            });
+            calendar.render();
+        });
+    </script>
+</body>
+</html>
